@@ -116,6 +116,7 @@ func main() {
 		fmt.Println("Usage: ./getdisponibilidade UF SERVICO")
 		fmt.Println("UFs disponiveis: AM BA CE GO MG MS MT PE PR RS SP SVAN SVRS SVC-AN SVC-RS")
 		fmt.Println("Serviços disponiveis: AUTORIZACAO CONSULTA.CADASTRO CONSULTA.PROTOCOLO INUTILIZACAO RECEPCAO.EVENTO RETORNO.AUTORIZACAO STATUS.SERVICO")
+		fmt.Println("Retornos Possiveis: 1 - Online, 2 - Instavel, 0 - Offline, 5 - Sem dados (inválido)")
 		return
 	}
 
