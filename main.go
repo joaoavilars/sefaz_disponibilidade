@@ -19,10 +19,10 @@ type EstadoStatus struct {
 
 var estadoStatus = []EstadoStatus{
 	{"AUTORIZACAO", "AM,BA,CE,GO,MG,MS,MT,PE,PR,RS,SP,SVAN,SVRS,SVC-AN,SVC-RS", 2},
-	{"RETORNO.AUT", "AM,BA,CE,GO,MG,MS,MT,PE,PR,RS,SP,SVAN,SVRS,SVC-AN,SVC-RS", 4},
+	{"RETORNO.AUTORIZACAO", "AM,BA,CE,GO,MG,MS,MT,PE,PR,RS,SP,SVAN,SVRS,SVC-AN,SVC-RS", 4},
 	{"INUTILIZACAO", "AM,BA,CE,GO,MG,MS,MT,PE,PR,RS,SP,SVAN,SVRS", 6},
 	{"CONSULTA.PROTOCOLO", "AM,BA,CE,GO,MG,MS,MT,PE,PR,RS,SP,SVAN,SVRS", 8},
-	{"SERVICO", "AM,BA,CE,GO,MG,MS,MT,PE,PR,RS,SP,SVAN,SVRS", 10},
+	{"STATUS.SERVICO", "AM,BA,CE,GO,MG,MS,MT,PE,PR,RS,SP,SVAN,SVRS", 10},
 	{"CONSULTA.CADASTRO", "BA,CE,GO,MG,MS,MT,PE,PR,RS,SP,SVRS", 12},
 	{"RECEPCAO.EVENTO", "BA,CE,GO,MG,MS,MT,PE,PR,RS,SP,SVRS", 14},
 }
@@ -31,7 +31,16 @@ var estadoStatus = []EstadoStatus{
 func downloadTable() error {
 	url := "https://www.nfe.fazenda.gov.br/portal/disponibilidade.aspx?versao=0.00&tipoConteudo=P2c98tUpxrI="
 	outputFile := "/tmp/statusNFE.txt"
+	// Remover o arquivo existente, se houver
+	if _, err := os.Stat(outputFile); err == nil {
+		err := os.Remove(outputFile)
+		if err != nil {
+			fmt.Println("Erro ao remover arquivo existente:", err)
+			return err
+		}
+	}
 
+	// Baixar a tabela e salvar no arquivo
 	cmd := exec.Command("curl", "-b", "session=", "-s", "-k", "-o", outputFile, url)
 	err := cmd.Run()
 	if err != nil {
