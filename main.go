@@ -113,7 +113,9 @@ func findUFRow(n *html.Node, uf string) *html.Node {
 
 func main() {
 	if len(os.Args) != 3 {
-		fmt.Println("Usage: ./programa UF SERVICO")
+		fmt.Println("Usage: ./getdisponibilidade UF SERVICO")
+		fmt.Println("UFs disponiveis: AM BA CE GO MG MS MT PE PR RS SP SVAN SVRS SVC-AN SVC-RS")
+		fmt.Println("Serviços disponiveis: AUTORIZACAO CONSULTA.CADASTRO CONSULTA.PROTOCOLO INUTILIZACAO RECEPCAO.EVENTO RETORNO.AUTORIZACAO STATUS.SERVICO")
 		return
 	}
 
